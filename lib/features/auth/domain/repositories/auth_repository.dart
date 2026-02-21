@@ -10,5 +10,5 @@ abstract class AuthRepository {
   Future<Either<Failure, void>> logout();
   Future<Either<Failure, void>> deleteAccount();
   Future<Either<Failure, void>> sendPasswordResetEmail({required String email});
-  Stream<UserEntity> get authStateChange;
+  Stream<UserEntity?> get authStateChange;
 }

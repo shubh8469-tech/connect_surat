@@ -20,7 +20,7 @@ class AuthRepositoryImpl extends AuthRepository {
   final GoogleSignIn _googleSignIn;
 
   GoogleSignInAccount? _currentGoogleAccount;
-  
+
   GoogleSignInAccount? get currentGoogleAccount => _currentGoogleAccount;
 
   AuthRepositoryImpl({
@@ -183,6 +183,18 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  // TODO: implement authStateChange
-  Stream<UserEntity> get authStateChange => throw UnimplementedError();
+  Stream<UserEntity?> get authStateChange {
+    return _firebaseAuth.authStateChanges().map((user){
+      if(user == null){
+        return null;
+      }
+      return UserModel(
+        uid: user.uid,
+        name: user.displayName ?? '',
+        email: user.email ?? '',
+        phone: user.phoneNumber ?? '',
+        image: user.photoURL ?? '',
+      );
+    });
+  }
 }
