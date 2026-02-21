@@ -5,5 +5,10 @@ import '../../../../core/error/failure.dart';
 
 abstract class AuthRepository {
   Future<Either<Failure,UserEntity>> login({required String email, required String password});
+  Future<Either<Failure,UserEntity>> googleLogin();
   Future<Either<Failure, UserEntity>> signUp({required String name, required String email, required String password});
+  Future<Either<Failure, void>> logout();
+  Future<Either<Failure, void>> deleteAccount();
+  Future<Either<Failure, void>> sendPasswordResetEmail({required String email});
+  Stream<UserEntity> get authStateChange;
 }
